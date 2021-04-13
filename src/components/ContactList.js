@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
 import * as operations from "../redux/contacts-operations";
+import * as selectors from "../redux/contacts-selectors";
 
 const ContactList = ({ items, deleteContact }) => {
   return (
@@ -16,28 +17,15 @@ const ContactList = ({ items, deleteContact }) => {
   );
 };
 
-const getvisibleContacts = (allContact, filter) => {
-  const lowText = filter.toLowerCase();
-
-  return allContact.filter((contact) =>
-    contact.name.toLowerCase().includes(lowText)
-  );
-};
-
-const mapStateToProps = (state) => {
-  const { items, filter } = state.contacts;
-  const visibleContacts = getvisibleContacts(items, filter);
-
-  return {
-    items: visibleContacts,
-  };
-};
-
-// const mapStateToProps = ({ contacts: { items, filter } }) => {
+// const mapStateToProps = (state) => {
+//   const visibleContacts = selectors.getvisibleContacts(state);
 //   return {
-//     items: getvisibleContacts(items, filter),
+//     items: visibleContacts,
 //   };
 // };
+const mapStateToProps = (state) => ({
+  items: selectors.getvisibleContacts(state),
+});
 
 const mapDispatchToProps = (dispatch) => ({
   deleteContact: (id) => dispatch(operations.deleteContact(id)),

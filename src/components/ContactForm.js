@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 // import * as action from "../Redux/contacts-action";
 import * as operations from "../redux/contacts-operations";
+import * as selectors from "../redux/contacts-selectors";
 
 class ContactForm extends Component {
   state = {
@@ -76,7 +77,7 @@ class ContactForm extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    items: state.contacts.items,
+    items: selectors.getItems(state),
   };
 };
 
